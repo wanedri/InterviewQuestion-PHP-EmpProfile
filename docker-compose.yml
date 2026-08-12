@@ -1,0 +1,30 @@
+services:
+  backend:
+    build: ./backend
+    container_name: empprofile-backend
+    volumes:
+      - ./backend:/app
+      - backend-vendor:/app/vendor
+    ports:
+      - "8000:8000"
+    environment:
+      - APP_ENV=local
+      - APP_DEBUG=true
+      - APP_URL=http://localhost:8000
+
+  frontend:
+    build: ./frontend
+    container_name: empprofile-frontend
+    volumes:
+      - ./frontend:/app
+      - frontend-node-modules:/app/node_modules
+    ports:
+      - "5173:5173"
+    environment:
+      - VITE_API_URL=http://localhost:8000/api
+    depends_on:
+      - backend
+
+volumes:
+  backend-vendor:
+  frontend-node-modules:
