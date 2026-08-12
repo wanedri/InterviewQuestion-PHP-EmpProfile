@@ -1,16 +1,85 @@
-# PHP coding test
+# Employee Profile App
 
-Simple php test to create and display employee profile
+A small full-stack app to add and list employee profiles.
 
-## Follow these steps
-1. Fork this repository into your GitHub account (You can create a GitHub account if you don't have one)
-2. Clone the repository from your repository
-3. Checkout main branch
-4. Commit your changes with the code for below question
-5. Upload screen interface as image
-6. Add ```MYwavePSSD``` as collaborators
+- **Backend**: Laravel (PHP), REST API, employees persisted to a JSON file (`backend/storage/app/private/employees.json`)
+- **Frontend**: React (Vite), employee form + employee list, client + server-side validation
+
+## Screenshots
+
+**Add Employee**
+
+![Add Employee](docs/screenshots/Add-Employee-Page.png)
+
+**Employee List**
+
+![Employee List](docs/screenshots/List-Employee-Page.png)
+
+## Running with Docker (recommended)
+
+This is the easiest way to run the project — you only need [Docker Desktop](https://www.docker.com/products/docker-desktop/) installed, no PHP/Composer/Node required on your machine.
+
+```bash
+docker compose up -d --build
+```
+
+- Frontend: http://localhost:5173
+- Backend API: http://localhost:8000/api
+
+First start takes a little longer since Composer/npm dependencies install inside the containers. Watch progress with:
+
+```bash
+docker compose logs -f
+```
+
+Stop everything with:
+
+```bash
+docker compose down
+```
+
+## Running without Docker
+
+If you'd rather run things natively, you'll need PHP 8.2+, Composer, and Node 20+.
+
+**Backend**
+
+```bash
+cd backend
+composer install
+cp .env.example .env   # if .env doesn't already exist
+php artisan key:generate
+php artisan serve
+```
+
+**Frontend**
+
+```bash
+cd frontend
+npm install
+npm run dev
+```
+
+By default the frontend calls `http://localhost:8000/api`. Override this by setting `VITE_API_URL` (e.g. in `frontend/.env`).
+
+## Project structure
+
+```
+backend/    Laravel API (routes/api.php, app/Http/Controllers/Api, app/Repositories)
+frontend/   React app (src/pages, src/api, src/validation)
+docker-compose.yml
+```
+
+## API
+
+| Method | Endpoint              | Description                                   |
+| ------ | ---------------------- | ---------------------------------------------- |
+| GET    | `/api/employees`       | List all employees                             |
+| POST   | `/api/employees`       | Create an employee (validated, saved to JSON)  |
+| GET    | `/api/employee-options`| Dropdown option lists (gender, marital status, department) |
 
 ## Task
+
 1. Create a form to add new employee
 
     ```
@@ -34,7 +103,7 @@ Simple php test to create and display employee profile
 
 ## Language
 - Frontend
-    - Normal HTML5 and css or REACT 
+    - Normal HTML5 and css or REACT
 
 - Backend
     - Normal PHP or LARAVEL
@@ -43,4 +112,3 @@ Simple php test to create and display employee profile
 
 - Clean code and good practise
 - Good UI UX
-
